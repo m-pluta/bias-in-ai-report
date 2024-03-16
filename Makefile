@@ -1,2 +1,2 @@
 clean:
-	rm report.pdf template.pdf
+	rm report/*.pdf

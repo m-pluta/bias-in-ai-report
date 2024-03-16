@@ -1,77 +1,72 @@
-// This function gets your whole document as its `body` and formats
-// it as an article in the style of the IEEE.
+#let recursive_count(_body) = {
+  let r(cont) = {
+    let _C = 0
+    
+    if type(cont) == content {
+      for key in cont.fields().keys() {
+        if key == "children" {
+          for _child in cont.fields().at("children") {
+            _C +=  r(_child)
+          }
+        // } else if key == "caption" {
+        //   _C += r(cont.fields().at("caption"))
+        } else if key == "body" {
+          _C += r(cont.fields().at("body"))
+        } else if key == "text" {
+          _C += cont.fields().at("text").split(" ").filter(w => w.len() > 1).len()
+        } else if key == "child" {
+          _C += r(cont.at("child"))
+        }
+      }
+    } else if type(cont) == array {
+      for item in cont {
+        _C += r(item)
+      }
+    }
+    return _C
+  }
+  return r(_body)     
+}
+
 #let ieee(
-  // The paper's title.
   title: [Paper Title],
-
-  // An array of authors. For each author you can specify a name,
-  // department, organization, location, and email. Everything but
-  // but the name is optional.
   authors: (),
-
-  // The paper's abstract. Can be omitted if you don't have one.
   abstract: none,
-
-  // A list of index terms to display after the abstract.
   index-terms: (),
-
-  // The article's paper size. Also affects the margins.
-  paper-size: "us-letter",
-
-  // The path to a bibliography file if you want to cite some external
-  // works.
+  paper-size: "a4",
   bibliography-file: none,
-
-  // The paper's content.
-  body
+  pre_body: [],
+  table: [],
+  post_body: [],
 ) = {
-  // Set document metadata.
   set document(title: title, author: authors.map(author => author.name))
 
-  // Set the body font.
   set text(font: "STIX Two Text", size: 10pt)
 
-  // Configure the page.
   set page(
     paper: paper-size,
-    // The margins depend on the paper size.
-    margin: if paper-size == "a4" {
-      (x: 41.5pt, top: 80.51pt, bottom: 89.51pt)
-    } else {
-      (
-        x: (50pt / 216mm) * 100%,
-        top: (55pt / 279mm) * 100%,
-        bottom: (64pt / 279mm) * 100%,
-      )
-    }
+    margin: (x: 41.5pt, top: 80.51pt, bottom: 89.51pt),
   )
 
-  // Configure equation numbering and spacing.
   set math.equation(numbering: "(1)")
   show math.equation: set block(spacing: 0.65em)
 
-  // Configure appearance of equation references
   show ref: it => {
     if it.element != none and it.element.func() == math.equation {
-      // Override equation references.
       link(it.element.location(), numbering(
         it.element.numbering,
         ..counter(math.equation).at(it.element.location())
       ))
     } else {
-      // Other references as usual.
       it
     }
   }
 
-  // Configure lists.
   set enum(indent: 10pt, body-indent: 9pt)
   set list(indent: 10pt, body-indent: 9pt)
 
-  // Configure headings.
   set heading(numbering: "I.A.1.")
   show heading: it => locate(loc => {
-    // Find out the final number of the heading counter.
     let levels = counter(heading).at(loc)
     let deepest = if levels != () {
       levels.last()
@@ -81,8 +76,6 @@
 
     set text(10pt, weight: 400)
     if it.level == 1 [
-      // First-level headings are centered smallcaps.
-      // We don't want to number of the acknowledgment section.
       #let is-ack = it.body in ([Acknowledgment], [Acknowledgement])
       #set align(center)
       #set text(if is-ack { 10pt } else { 12pt })
@@ -95,7 +88,6 @@
       #it.body
       #v(13.75pt, weak: true)
     ] else if it.level == 2 [
-      // Second-level headings are run-ins.
       #set par(first-line-indent: 0pt)
       #set text(style: "italic")
       #v(10pt, weak: true)
@@ -106,7 +98,6 @@
       #it.body
       #v(10pt, weak: true)
     ] else [
-      // Third level headings are run-ins too, but different.
       #if it.level == 3 {
         numbering("1)", deepest)
         [ ]
@@ -115,12 +106,10 @@
     ]
   })
 
-  // Display the paper's title.
   v(3pt, weak: true)
   align(center, text(18pt, title))
   v(8.35mm, weak: true)
 
-  // Display the authors list.
   for i in range(calc.ceil(authors.len() / 3)) {
     let end = calc.min((i + 1) * 3, authors.len())
     let is-last = authors.len() == end
@@ -142,6 +131,9 @@
         if "email" in author [
           \ #link("mailto:" + author.email)
         ]
+        [ \ Intro: #{recursive_count(pre_body)} words ]
+        [ \ Recommendation: #{recursive_count(post_body)} words ]
+        [ \ #{recursive_count(pre_body) + recursive_count(post_body)}/1650 words ]
       }))
     )
 
@@ -151,28 +143,29 @@
   }
   v(40pt, weak: true)
 
-  // Start two column mode and configure paragraph properties.
-  show: columns.with(2, gutter: 12pt)
   set par(justify: true, first-line-indent: 1em)
   show par: set block(spacing: 0.65em)
 
-  // Display abstract and index terms.
-  if abstract != none [
-    #set text(weight: 700)
-    #h(1em) _Abstract_---#abstract
+  // {
+  //   set text(weight: 700)
+  //   h(1em)
+  //   [_Abstract_---]
+  //   abstract
+  //   v(2pt)
+  // }
 
-    #if index-terms != () [
-      #h(1em)_Index terms_---#index-terms.join(", ")
-    ]
-    #v(2pt)
-  ]
 
-  // Display the paper's contents.
-  body
+  columns(2, gutter: 12pt, pre_body)
+  page(
+    paper: paper-size,
+    flipped: true,
+    table
+  )
+  show: columns.with(2, gutter: 12pt)
+  post_body
 
-  // Display bibliography.
   if bibliography-file != none {
     show bibliography: set text(8pt)
-    bibliography(bibliography-file, title: text(10pt)[References], style: "ieee", full: true)
+    bibliography(bibliography-file, title: text(10pt)[References], style: "ieee")
   }
 }
