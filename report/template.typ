@@ -1,3 +1,4 @@
+// Word count function
 #let recursive_count(_body) = {
   let r(cont) = {
     let _C = 0
@@ -39,15 +40,19 @@
   table: [],
   post_body: [],
 ) = {
+  // Document formatting
   set document(title: title, author: authors.map(author => author.name))
 
+  // Text formatting
   set text(font: "STIX Two Text", size: 10pt)
 
+  // Page formatting
   set page(
     paper: paper-size,
     margin: (x: 41.5pt, top: 80.51pt, bottom: 89.51pt),
   )
 
+  // Equation formatting
   set math.equation(numbering: "(1)")
   show math.equation: set block(spacing: 0.65em)
 
@@ -62,9 +67,11 @@
     }
   }
 
+  // List formatting
   set enum(indent: 10pt, body-indent: 9pt)
   set list(indent: 10pt, body-indent: 9pt)
 
+  // Heading formatting
   set heading(numbering: "I.A.1.")
   show heading: it => locate(loc => {
     let levels = counter(heading).at(loc)
@@ -106,10 +113,12 @@
     ]
   })
 
+  // Title
   v(3pt, weak: true)
   align(center, text(18pt, title))
   v(8.35mm, weak: true)
 
+  // Authors
   for i in range(calc.ceil(authors.len() / 3)) {
     let end = calc.min((i + 1) * 3, authors.len())
     let is-last = authors.len() == end
@@ -143,9 +152,7 @@
   }
   v(40pt, weak: true)
 
-  set par(justify: true, first-line-indent: 1em)
-  show par: set block(spacing: 0.65em)
-
+  // Abstract
   // {
   //   set text(weight: 700)
   //   h(1em)
@@ -154,18 +161,26 @@
   //   v(2pt)
   // }
 
-
+  // Pre-body
+  set par(justify: true, first-line-indent: 1em)
+  show par: set block(spacing: 0.65em)
   columns(2, gutter: 12pt, pre_body)
+
+  // Stakeholder table
+  set par(justify: false, first-line-indent: 0em)
   page(
     paper: paper-size,
     flipped: true,
     table
   )
+
+  // Post body
+  set par(justify: true, first-line-indent: 1em)
   show: columns.with(2, gutter: 12pt)
   post_body
 
+  // Bibliography
   if bibliography-file != none {
-    show bibliography: set text(8pt)
-    bibliography(bibliography-file, title: text(10pt)[References], style: "ieee")
+    bibliography(bibliography-file, style: "ieee")
   }
 }

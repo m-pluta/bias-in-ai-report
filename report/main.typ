@@ -1,9 +1,5 @@
 #import "template.typ": *
 
-#show highlight: it => {
-  it // Remove to get rid of highlighted notes
-}
-
 #ieee(
   title: [ Evaluating the use of Emotion Recognition Technology (ERT) for consumer sentiment analysis in marketing ],
   abstract: [
