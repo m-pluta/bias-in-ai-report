@@ -52,9 +52,13 @@
     margin: (x: 41.5pt, top: 80.51pt, bottom: 89.51pt),
   )
 
+
+
   // Equation formatting
   set math.equation(numbering: "(1)")
   show math.equation: set block(spacing: 0.65em)
+  
+  show figure: set block(breakable: true)
 
   show ref: it => {
     if it.element != none and it.element.func() == math.equation {
@@ -68,11 +72,11 @@
   }
 
   // List formatting
-  set enum(indent: 10pt, body-indent: 9pt)
-  set list(indent: 10pt, body-indent: 9pt)
+  set enum(indent: 0.75em, body-indent: 0.5em)
+  set list(indent: 0.75em, body-indent: 0.5em)
 
   // Heading formatting
-  set heading(numbering: "I.A.1.")
+  set heading(numbering: "1.1.1.")
   show heading: it => locate(loc => {
     let levels = counter(heading).at(loc)
     let deepest = if levels != () {
@@ -89,7 +93,7 @@
       #show: smallcaps
       #v(20pt, weak: true)
       #if it.numbering != none and not is-ack {
-        numbering("I.", deepest)
+        numbering("1.", deepest)
         h(7pt, weak: true)
       }
       #it.body
@@ -99,7 +103,7 @@
       #set text(style: "italic")
       #v(10pt, weak: true)
       #if it.numbering != none {
-        numbering("A.", deepest)
+        numbering("1.", deepest)
         h(7pt, weak: true)
       }
       #it.body
@@ -114,9 +118,9 @@
   })
 
   // Title
-  v(3pt, weak: true)
+  v(0pt, weak: false)
   align(center, text(18pt, title))
-  v(8.35mm, weak: true)
+  v(6.35mm, weak: true)
 
   // Authors
   for i in range(calc.ceil(authors.len() / 3)) {
@@ -140,9 +144,11 @@
         if "email" in author [
           \ #link("mailto:" + author.email)
         ]
-        [ \ Intro: #{recursive_count(pre_body)} words ]
-        [ \ Recommendation: #{recursive_count(post_body)} words ]
-        [ \ #{recursive_count(pre_body) + recursive_count(post_body)}/1650 words ]
+        [ \ #{recursive_count(title)}]
+        [ \+ #{recursive_count(pre_body)}]
+        [ \+ #emph([(#recursive_count(table))])]
+        [ \+ #{recursive_count(post_body)}]
+        [ \= #{recursive_count(title) + recursive_count(pre_body) + recursive_count(post_body)}/1650 words ]
       }))
     )
 
@@ -150,37 +156,42 @@
       v(16pt, weak: true)
     }
   }
-  v(40pt, weak: true)
+  v(22pt, weak: true)
 
-  // Abstract
-  // {
-  //   set text(weight: 700)
-  //   h(1em)
-  //   [_Abstract_---]
-  //   abstract
-  //   v(2pt)
-  // }
+
 
   // Pre-body
-  set par(justify: true, first-line-indent: 1em)
-  show par: set block(spacing: 0.65em)
-  columns(2, gutter: 12pt, pre_body)
+  set par(justify: true)
+  show par: set block(spacing: 1em)
+  columns(
+    2, 
+    gutter: 12pt,
+    [
+      // Abstract
+      #if abstract != [] {
+        set text(weight: 700)
+        h(1em)
+        [_Abstract_---]
+        abstract
+        v(-5pt, weak: false)
+      }
+    ] + pre_body)
 
   // Stakeholder table
-  set par(justify: false, first-line-indent: 0em)
+  set par(justify: false)
   page(
     paper: paper-size,
-    flipped: true,
+    flipped: false,
     table
   )
 
   // Post body
-  set par(justify: true, first-line-indent: 1em)
+  set par(justify: true)
   show: columns.with(2, gutter: 12pt)
   post_body
 
   // Bibliography
   if bibliography-file != none {
-    bibliography(bibliography-file, style: "ieee")
+    bibliography(bibliography-file, full: true, style: "ieee")
   }
 }
