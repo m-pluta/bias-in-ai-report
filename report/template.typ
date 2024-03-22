@@ -150,7 +150,8 @@
           #let tab = recursive_count(table);
           #let post = recursive_count(post_body);
           #let total = t + pre + post;
-          \ #{t} + #{pre} + (#{tab}) + #{post} = #{total}/1650 words
+          // \ #{t} + #{pre} + (#{tab}) + #{post} = #{total}/1650 words
+          \ #{total} words
         ]
       }))
     )
@@ -192,16 +193,11 @@
   // Post body
   set par(justify: true)
   set list(indent: 0.75em)
-  columns(
-    2,
-    gutter: 12pt,
-    post_body
-  )
 
-  // Bibliography
-  pagebreak()
-  
   show: columns.with(2, gutter: 12pt)
+  post_body
+  
+  
   // Bibliography
   if bibliography-file != none {
     bibliography(bibliography-file, full: true, style: "ieee")

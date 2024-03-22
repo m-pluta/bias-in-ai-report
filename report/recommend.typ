@@ -2,13 +2,13 @@
 
 // #highlight([
 // - How human values were identified
-// - Desribe potential value conflicts
+// - Describe potential value conflicts
 //   - Data Collection vs. Privacy
 //   - How these may be resolved, which group's interests should be prioritised - always prioritise individuals freedoms
 // ])
 
 Individuals and corporations intrinsically value different things. 
-Individuals often value autonomy, privacy and security, seeking to protect their personal information and maintain control over their personal lives and decisions. Corporations, on the other hand, typically value profitability and efficiency, seeking to analyse all available data to improve performance. 
+Individuals often value autonomy, privacy, and security, seeking to protect their personal information and maintain control over their personal lives and decisions. Corporations, on the other hand, typically value profitability and efficiency, seeking to analyse all available data to improve performance. 
 
 This divergence in values is identified in @F_stakeholder_table and cases such as the Cambridge Analytica scandal and the 2017 Equifax breach, underline the importance of resolving this conflict.
 
@@ -22,7 +22,7 @@ In order to resolve this conflict it is necessary to conduct empirical investiga
 
 Importantly, there are two more existing conflicts between stakeholders:
 
-+ Developers are likely to prioritise the safety and quality of the model, while the advertising agency may aim for rapid deployment at the expense of thorough testing and safeguarding. Here, prioritising the developer's value for safety is crucial and suitable protocols should be established to never allow an unsafe model to be deployed for public use.
++ Developers are likely to prioritise the safety and quality of the model, while the advertising agency may aim for rapid deployment at the expense of thorough testing and safeguarding. Here, prioritising the developer's value for safety is crucial, and suitable protocols should be established to never allow an unsafe model to be deployed for public use.
 
 + The government has a responsibility to protect public welfare and environmental sustainability, both of which the advertising agency may sacrifice in order to advance development. In this case, the government's values must be prioritised to ensure irreversible damage is not done by the agency and that all actions are heavily regulated.
 
@@ -34,7 +34,7 @@ Based on the insights uncovered by the EIA in @S_EIA and @S_VCA, it is clear tha
 
 Additionally, in order to create a model that is deemed 'fair' and 'unbiased', it is important to first contextually define these notions. Currently, there are at least 20 admissible definitions for AI fairness @P_Verma_fairness_definitions including both statistical and causal definitions "with no clear agreement on which definition to apply in each scenario" @P_Verma_fairness_definitions.
 
-We suggest that these notions should first be formally defined and guided by further empirical investigation into stakeholders' perceptions of 'fairness' and 'bias'.
+We suggest that these notions should first be formally defined and guided by further empirical investigations into stakeholders' perceptions of 'fairness' and 'bias'.
 
 
 
@@ -63,18 +63,23 @@ This has led to the creation of face-attributed datasets like FairFace @D_fairfa
 
 == Risk and bias mitigation measures
 
+- *Interpretability and Explainability* - 
+  In machine learning, models are often tasked with optimising an objective function, and while the model may be perfectly capable of doing this, it is often difficult for humans to gain insight @W_interpretability_def_useful. This is the key benefit of interpretable models that allows humans to understand what caused the model to make a particular decision @W_interpretability_definition and explainable models which involve creating a second model capable of explaining the choices made by the ML system @P_bias_mitigation_in_medicine_explainability. 
+  
+  By incorporating these measures into the design process, it promotes responsible development as the effects of changes made to the model can be verified by examining the decision process. This helps avoid unintentional addition of bias to the system. @W_interpretability_benefit
 
-- Interpretability
-  - audits
+- *Continuous monitoring* - 
+  This mitigation measure is a long-term strategy that involves continuously monitoring the model's evaluation metrics, which can include accuracy, precision, recall, and f1-score for each demographic indicator (race, gender, age). 
+  
+  The continuous monitoring of the model's behaviour means that model drift and degradation in performance can be identified and corrected @W_continuous_monitoring_explained. This allows developers to quickly address the issue (or shut down the entire model) before the model can generate unfair or harmful outputs.
+  
+- *Diversity and inclusion* - 
+  By encouraging diversity within the development team and involving indirect stakeholders in discussions, the likelihood of identifying and challenging assumptions that could result in biased outcomes increases. This approach not only helps reduce bias and potential harm to end users, but also increases the system's fairness and equity.
 
-- Continuous monitoring
-
-- Data pre-processing
-
-#v(90pt)
 == Critical Assessment and Limitations
 
+While these mitigation strategies are theoretically plausible, in practice they offer a multitude of limitations.
+
+Interpretability for example offers a serious trade-off. Often, highly interpretable models may struggle with capturing complex relationships within data @P_interpretability_limitations (particularly applicable to image data due to its complexity), which can reduce the model's overall accuracy making it more susceptible to producing wrong outputs and harming users.
 
 Moreover, while VSD is a well-studied framework, it is a theoretically grounded approach @P_2_value_sensitive_design which does not provide a clear way of embedding values into the design @P_VSD_in_AI_critiques.
-
-// VSD can conflict with the desire to bring products to market quickly,
