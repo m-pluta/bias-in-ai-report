@@ -5,7 +5,6 @@
 #let term-spacing = 0.5em;
 #let stakeholder-spacing = 1em;
 
-#set list(indent: 0em)
 #figure(
   table(
     columns: (100pt, 220pt, 1fr),
@@ -57,7 +56,7 @@
 
       - *Inadequate security measures*
         #v(term-spacing, weak: true)
-        The agency is resposible for storing consumer sentiment data "including protection against unauthorised or unlawful processing and against accidental loss, destruction or damage" @W_ICO_GDPR.
+        The agency is responsible for storing consumer sentiment data "including protection against unauthorised or unlawful processing and against accidental loss, destruction or damage" @W_ICO_GDPR.
         
         Failure to adequately protect this data may result in prosecution, civil lawsuits, and irreversible damage to the advertising agency's reputation.
 
@@ -75,7 +74,7 @@
     [
       - *Consumer Trust*
         #v(term-spacing, weak: true)
-        The trust consumers have in a particular brand is directly related to their likelihood of purchasing products from that brand @W_business_com_repeat_customers_67. Moreover, given that the likelihood of converting an existing customer ranges from 60-70%, compared to only 5-20% for new customers @W_Forbes_repeat_customers, it is clear brands will ensure consumers stay loyal.
+        The trust consumers have in a particular brand is directly related to their likelihood of purchasing products from that brand @W_business_com_repeat_customers_67@W_salesforce_consumer_trust. Moreover, given that the likelihood of converting an existing customer ranges from 60-70%, compared to only 5-20% for new customers @W_Forbes_repeat_customers, it is clear brands will ensure consumers stay loyal.
       
     ],
     [
@@ -99,13 +98,14 @@
     [
       - *Universal Usability*
         #v(term-spacing, weak: true)
-        Developers are likely to prioritise usability by ensuring the technology is accessible to the widest possible audience, including individuals with disabilities, and people from a diverse range of backgrounds.
-      
+        Developers are likely to prioritise usability by ensuring the technology is accessible to the widest possible audience, including individuals with disabilities, and people from a diverse range of backgrounds. 
+        
+        \ \
+
       - *Freedom from bias*
         #v(term-spacing, weak: true)
-        Valuing freedom from bias directly influences the integrity and fairness of the technology. This responsibility is particularly significant given the increasing regulation around data ethics and AI fairness @W_GOV_UK_2020.
+        Valuing freedom from bias directly influences the integrity and fairness of the technology @P_VSD_benefits. This responsibility is particularly significant given the increasing regulation around data ethics and AI fairness @W_GOV_UK_2020.
         
-      
       - *Quality product*
         #v(term-spacing, weak: true)
         The value placed on delivering a quality product/solution is closely linked to a developer's professional pride and technical reputation. Additionally, for developers, it is clear that if the implemented system matches or goes beyond expectations their career prospects can improve significantly.
@@ -195,9 +195,8 @@
       - *Legal and Political Pressure*
         #v(term-spacing, weak: true)
         These groups may feel pressure from the agencies that want to make this technology a reality regardless of ethical considerations. This is a potentially very powerful technology that could be used for national surveillance if not regulated appropriately.
-        
 
-
+        \ \
 
       - *Loss of trust*
         #v(term-spacing, weak: true)
@@ -235,7 +234,7 @@
         #v(term-spacing, weak: true)
         Governments may experience public backlash if the technology is used in invasive ways beyond what was originally specified, or for not interfering and regulating the technology early enough.
 
-        ⁤Furthermore, the proposed technology employs machine learning and is intended to be installed across cities, which is likely to consume significant amounts of energy. This raises environmental concerns which the government may be held accountable for if the technology is not adequately regulated. ⁤This is regardless of whether the government is aiding in creation of this technology
+        ⁤Furthermore, the proposed technology employs machine learning and is intended to be installed across cities, which is likely to consume significant amounts of energy. This raises environmental concerns which the government may be held accountable for if the technology is not adequately regulated. ⁤This is regardless of whether the government is aiding in the creation of this technology.
     ],
     
     // //------------------------------------------

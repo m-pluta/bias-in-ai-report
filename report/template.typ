@@ -106,7 +106,7 @@
         numbering("1.", deepest)
         h(7pt, weak: true)
       }
-      #it.body
+      #strong(it.body)
       #v(10pt, weak: true)
     ] else [
       #if it.level == 3 {
@@ -131,7 +131,7 @@
       columns: slice.len() * (1fr,),
       gutter: 12pt,
       ..slice.map(author => align(center, {
-        text(12pt, author.name)
+        text(12pt, author.name + if "cis" in author {" - " + author.cis})
         if "department" in author [
           \ #emph(author.department)
         ]
@@ -192,9 +192,16 @@
   // Post body
   set par(justify: true)
   set list(indent: 0.75em)
-  show: columns.with(2, gutter: 12pt)
-  post_body
+  columns(
+    2,
+    gutter: 12pt,
+    post_body
+  )
 
+  // Bibliography
+  pagebreak()
+  
+  show: columns.with(2, gutter: 12pt)
   // Bibliography
   if bibliography-file != none {
     bibliography(bibliography-file, full: true, style: "ieee")

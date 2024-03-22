@@ -1,7 +1,3 @@
-#show highlight: it => {
-  it // Remove to get rid of highlighted notes
-}
-
 = Introduction <S_Intro>
 
 // #highlight([
@@ -11,13 +7,13 @@
 
 The first impression a consumer forms upon encountering an advertisement (ad) plays a pivotal role in determining its success in engaging their interest @W_first_impression@P_emotion_analysis_uses. By understanding how consumers emotionally connect with advertisements, brands can make informed decisions to improve the effectiveness of their marketing. This underscores the importance of analysing consumer sentiment.
 
-The proposed solution is a machine-learning model capable of classifying facial expressions into distinct labels. The model will consist of 3 key mechanisms:
+The proposed solution is a machine-learning model capable of classifying facial expressions into distinct labels. The model will consist of three key mechanisms:
 
 + _Object detection & classification_ - Identifying and distinguishing human faces within a visual input
 + _Gaze detection_ - Detecting which people are currently looking at the advertisement
 + _Emotion classification_ - Classifying the facial expression
 
-The model will be trained, validated, and tested using a large, diverse range of human faces each labeled with an emotion. For an in-depth discussion of dataset choice and recommendations for implementation see @S_Dataset.
+The model will be trained, validated, and tested using a large, diverse range of human faces each labelled with an emotion. For an in-depth discussion of dataset choice and recommendations for implementation see @S_Dataset.
 
 The primary output of the model is an emotion distribution, indicating the model's confidence level in each emotion, similar to that depicted in @F_emotion_dist below.
 
@@ -37,7 +33,7 @@ The primary output of the model is an emotion distribution, indicating the model
 While this system has a variety of potential uses in marketing, for example:
 
 - _Market Research_ - Analysing consumer sentiment in a product's development phase, to make small adjustments to the product.
-- _A/B testing_ - Presenting two versions of a product to a candidate, and measuring which one they react more positively to. This is particularly applicable to websites where most have roughly 5 seconds to make a lasting impression @P_emotion_analysis_uses.
+- _A/B testing_ - Presenting two versions of a product to a candidate, and measuring which one they react more positively to. This is particularly applicable to websites where most have roughly five seconds to make a lasting impression @P_emotion_analysis_uses.
 
 , we will focus on _Dynamic ad placement_.
 
@@ -69,7 +65,7 @@ VSD is an approach to system design that systematically integrates human values 
   caption: [Diagram of the iterative nature of VSD]
 )
 
-It consists of 3 integral investigations:
+It consists of three integral investigations:
 
 + *Conceptual* - Identifying and analysing various stakeholder groups affected by the technology along with their values, rights, and principles to understand which values are important.
 
@@ -83,20 +79,20 @@ Two key benefits of this approach are:
 
 - Human values are deeply rooted within the technology's design from the beginning which helps prevent negative consequences for users and society
 
-- By considering the broader societal and ethical implications of a technology, VSD helps develop solutions that are resilient to changing societal norms. The approach not only addresses pre-existing biases, but also proactively guards against the development of emergent bias @P_1_bias_in_computer_systems.
+- By considering the broader societal and ethical implications of a technology, VSD helps develop solutions that are resilient to changing societal norms. The approach not only addresses pre-existing biases but also proactively guards against the development of emergent bias @P_1_bias_in_computer_systems.
 
 By utilising the VSD framework, we conduct an Ethical Impact Assessment (EIA). This crucial step ensures that the implemented AI system aligns with values and principles that prioritise human rights, fairness, and transparency @P_Unesco_EIA_in_AI. 
 
 This proactive approach promotes trust in AI systems by identifying and mitigating potential biases and their potential harms.
 
-#v(100pt)
+#v(12pt)
 = Immediate Ethical Issues <S_ImmIssues>
-#highlight([
-- Highlight any apparent ethical issues to be considered ahead of development
-])
+// #highlight([
+// - Highlight any apparent ethical issues to be considered ahead of development
+// ])
 
-Two immediately apparent ethical issues are:
+*Informed consent* - As this technology is proposed as a passive data collection method, ensuring informed consent is complex, particularly for vulnerable groups (e.g. children) as they may not grasp the associated risks. This highlights the importance of consent mechanisms that respect individual autonomy.
 
-+ *Informed consent* @P_2_value_sensitive_design
+*Environmental sustainability* - The technology is likely to be implemented city-wide with each location having its own camera and inference model, which is likely to consume a lot of energy. This issue is critical as AI already constitutes a large portion of energy consumption @W_AI_ML_power_consumption.
 
-+ *Environmental sustainability*
+  
