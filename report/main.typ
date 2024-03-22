@@ -1,9 +1,9 @@
 #import "template.typ": *
 
 #ieee(
-  title: [ Evaluating the use of Emotion Recognition Technology (ERT) for consumer sentiment analysis in marketing ],
+  title: [ Assessing the use of Emotion Recognition Technology (ERT) for consumer sentiment analysis ],
   abstract: [
-    In this paper we discuss the ethical considerations necessary for an emotion recognition system used for dynamic ad placement to exist. We perform an Ethical Impact Assessment using the Value Sensitive Design framework, and offer recommendations to ensure the system is implemented with minimal underlying bias. 
+    In this paper we discuss the ethical considerations necessary for an emotion recognition system used for dynamic ad placement to exist. By conducting an Ethical Impact Assessment using the Value Sensitive Design framework, we offer recommendations to ensure the system's implementation is minimally biased and reduces potential harm to stakeholder groups. 
   ],
   authors: (
     (

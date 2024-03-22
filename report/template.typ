@@ -50,8 +50,8 @@
   set page(
     paper: paper-size,
     margin: (x: 41.5pt, top: 80.51pt, bottom: 89.51pt),
+    numbering: "1",
   )
-
 
 
   // Equation formatting
@@ -144,11 +144,14 @@
         if "email" in author [
           \ #link("mailto:" + author.email)
         ]
-        [ \ #{recursive_count(title)}]
-        [ \+ #{recursive_count(pre_body)}]
-        [ \+ #emph([(#recursive_count(table))])]
-        [ \+ #{recursive_count(post_body)}]
-        [ \= #{recursive_count(title) + recursive_count(pre_body) + recursive_count(post_body)}/1650 words ]
+        [
+          #let t = recursive_count(title);
+          #let pre = recursive_count(pre_body);
+          #let tab = recursive_count(table);
+          #let post = recursive_count(post_body);
+          #let total = t + pre + post;
+          \ #{t} + #{pre} + (#{tab}) + #{post} = #{total}/1650 words
+        ]
       }))
     )
 
@@ -173,12 +176,13 @@
         h(1em)
         [_Abstract_---]
         abstract
-        v(-5pt, weak: false)
+        v(-8pt, weak: false)
       }
     ] + pre_body)
 
   // Stakeholder table
   set par(justify: false)
+  set list(indent: 0em)
   page(
     paper: paper-size,
     flipped: false,
@@ -187,6 +191,7 @@
 
   // Post body
   set par(justify: true)
+  set list(indent: 0.75em)
   show: columns.with(2, gutter: 12pt)
   post_body
 
